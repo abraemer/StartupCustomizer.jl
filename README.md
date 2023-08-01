@@ -11,6 +11,10 @@ This would then install `Revise.jl` into the global environment and paste the in
 ## User Guide
 You can use `status()` to see what currently is in your startup.jl, `list()` to get a list of available modules, `describe(module)` to get detailed information on a module, `add(module...)`/`remove(module...)` to add/remove modules and `edit()` to edit the startup.jl directly by hand. Notably `add`ing modules also installs required packages into the global default environment.
 
+Currently supported are:
+ - `Revise.jl`
+ - `OhMyREPL.jl`
+ - `PkgTemplates.jl`
 
 ## Developer Guide
 The main concept of this package is that of a `StartupModule` which handles something you want to put into your startup.jl. All one needs to do to add something new is to make a subtype of `AbstractStartupModule` and implement 4 methods `short_description`, `long_description`, `_dependencies` and `_generate`.
