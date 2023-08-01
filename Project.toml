@@ -3,6 +3,11 @@ uuid = "fb0408be-4331-42cc-8584-db8fa022598a"
 authors = ["Adrian Braemer <11058200+abraemer@users.noreply.github.com> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+InteractiveUtils = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
+Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+
 [compat]
 julia = "1.9.2"
 
