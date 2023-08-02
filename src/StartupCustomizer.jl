@@ -31,14 +31,17 @@ _dependencies(mod::AbstractStartupModule) = _dependencies(typeof(mod))
 
 include("parse.jl")
 
-_find_startup_file() = joinpath(DEPOT_PATH[1], "config/startup.jl")
+"""
+    which()
+Return the location of the default `startup.jl`.
+"""
+which() = joinpath(DEPOT_PATH[1], "config/startup.jl")
 
-## this should not be called edit I think. This name clashes with InteractiveUtils.edit
-## might be fine if names are not exported
 """
     edit()
+Open an editor of the `startup.jl` file.
 """
-function edit(file=_find_startup_file())
+function edit(file=which())
     !ispath(dirname(file)) || mkpath(dirname(file))
     !isfile(file) || touch(file)
     InteractiveUtils.edit(file)
@@ -46,9 +49,9 @@ end
 
 """
     status()
-List currently active modules in startup.jl
+List currently active modules in `startup.jl`.
 """
-function status(; file = _find_startup_file())
+function status(; file = which())
     current_modules = _parse_startup_file(file)
     display(Markdown.MD(Markdown.List(_list.(current_modules))))
 end
@@ -83,10 +86,10 @@ describe(mod::AbstractStartupModule) = describe(typeof(mod))
 
 
 """
-    add(modules...; file = _find_startup_file())
-Add the `modules` to the startup.jl.
+    add(modules...; file = which())
+Add given `modules` to the `startup.jl`.
 """
-function add(mods...; file = _find_startup_file())
+function add(mods...; file = which())
     current_modules = _parse_startup_file(file)
     maybe_new_dependencies = String[]
     for mod in mods
@@ -115,13 +118,13 @@ end
 
 """
     remove(modules...)
-Remove the `modules` from the startup.jl.
+Remove given `modules` from the `startup.jl`.
 """
-function remove(mods...; file = _find_startup_file())
+function remove(mods...; file = which())
     current_modules = _parse_startup_file(file)
     maybe_unneeded_dependencies = []
     for mod in mods
-        idx = findfirst(==(mod), current_modules)
+        idx = findfirst(x->typeof(x)==typeof(mod), current_modules)
         if isnothing(idx)
             @info "Module $mod not enabled. Ignoring."
             continue
