@@ -31,16 +31,17 @@ _dependencies(mod::AbstractStartupModule) = _dependencies(typeof(mod))
 
 include("parse.jl")
 
-_find_startup_file() = expanduser("~/.julia/config/startup.jl")
+_find_startup_file() = joinpath(DEPOT_PATH[1], "config/startup.jl")
 
 ## this should not be called edit I think. This name clashes with InteractiveUtils.edit
 ## might be fine if names are not exported
 """
     edit()
 """
-function edit()
-    # this is probably not a robust way of finding the startup.jl - how to improve this?
-    InteractiveUtils.edit(_find_startup_file())
+function edit(file=_find_startup_file())
+    !ispath(dirname(file)) || mkpath(dirname(file))
+    !isfile(file) || touch(file)
+    InteractiveUtils.edit(file)
 end
 
 """

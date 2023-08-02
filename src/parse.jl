@@ -6,6 +6,7 @@ _generate(cc::CustomCode) = cc.content
 _dependencies(::CustomCode) = String[]
 
 function _parse_startup_file(file)
+    !isfile(file) && return []
     lines = rstrip.(readlines(file))
     module_starts = findall(_match_module_start, lines)
     module_ends = findall(_match_module_end, lines)
@@ -44,6 +45,7 @@ function _parse_module(line)
 end
 
 function _regenerate_startup_file(file, modules)
+    !ispath(dirname(file)) && mkpath(dirname(file))
     open(file, "w") do f
         for mod in modules
             generate(f, mod)
