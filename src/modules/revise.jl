@@ -8,12 +8,5 @@ long_description(::Type{Revise}) = md"""
 If you don't know what `Revise.jl` is you should visit [Workflow tips](https://docs.julialang.org/en/v1/manual/workflow-tips/#Revise-based-workflows) for more information.
 """
 
-_generate(::Revise) = """
-try
-    using Revise
-catch e
-    @warn "Error initializing Revise" exception=(e, catch_backtrace())
-end
-"""
-
+_generate(::Revise) = read("templates/revise.jl", String)
 _dependencies(::Type{Revise}) = ["Revise"]

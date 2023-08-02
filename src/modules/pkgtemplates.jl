@@ -1,8 +1,8 @@
 struct PkgTemplates <: AbstractStartupModule
-    config::String
+    config::Expr
 end
 
-PkgTemplates(; kwargs...) = join(("$k = $v" for (k,v) in kwargs), ",\n\t\t\t")
+PkgTemplates(; kwargs...) = PkgTemplates(Meta.parse(repr((; kwargs...))))
 
 short_description(::Type{PkgTemplates}) = "Define a function `template(; kwargs)` that generates a PkgTemplates.Template"
 
@@ -25,16 +25,7 @@ before they are passed, so the resulting configuration requires `PkgTemplates.jl
 `"julia = 1.9.2, plugins = [PkgTemplates.Git(String[], nothing, nothing, \"main\", true, true, false, false)]"`
 """
 
-_generate(pkgt::PkgTemplates) = """
-function template(; kwargs...)
-    @eval begin
-        using PkgTemplates
-        Template(;
-	        $(_format(pkgt)))
-    end
-end
-"""
-
+_generate(pkgt::PkgTemplates) = "PKGTEMPLATECONFIG = "*repr(pkgt.config)*"\n"*read("templates/pkgtemplates.jl", String)
 _dependencies(::Type{PkgTemplates}) = ["PkgTemplates"]
 
 function _format(pkgt::PkgTemplates)

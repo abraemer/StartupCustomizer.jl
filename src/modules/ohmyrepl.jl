@@ -10,14 +10,5 @@ Enable OhMyRepl.jl on startup, which makes everything in the REPL look nicer.
 See [Documentation](https://kristofferc.github.io/OhMyREPL.jl/latest/) for more information.
 """
 
-_generate(::OhMyREPL) = """
-atreplinit() do repl
-    try
-        @eval using OhMyREPL
-    catch e
-        @warn "error while importing OhMyREPL" e
-    end
-end
-"""
-
+_generate(::OhMyREPL) = read("templates/ohmyrepl.jl", String)
 _dependencies(::Type{OhMyREPL}) = ["OhMyREPL"]
