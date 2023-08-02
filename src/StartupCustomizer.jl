@@ -145,6 +145,6 @@ end
 include("modules/revise.jl")
 include("modules/ohmyrepl.jl")
 include("modules/pkgtemplates.jl")
-
+include("modules/numberedprompt.jl")
 
 end # module
