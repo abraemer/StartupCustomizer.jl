@@ -1,7 +1,7 @@
 name = "StartupCustomizer"
 uuid = "fb0408be-4331-42cc-8584-db8fa022598a"
 authors = ["Adrian Braemer <11058200+abraemer@users.noreply.github.com> and contributors"]
-version = "1.0.0"
+version = "1.0.1"
 
 [deps]
 InteractiveUtils = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
