@@ -2,7 +2,6 @@ struct PkgTemplates <: AbstractStartupModule
     config::Expr
 end
 
-PkgTemplates() = PkgTemplates(:())
 PkgTemplates(; kwargs...) = PkgTemplates(Meta.parse(repr((; kwargs...))))
 
 short_description(::Type{PkgTemplates}) = "Define a function `template(; kwargs)` that generates a PkgTemplates.Template"
