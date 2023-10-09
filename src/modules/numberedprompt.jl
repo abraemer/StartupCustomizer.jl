@@ -11,5 +11,5 @@ can be referred to by the prompt's number.
 See [Manual](https://docs.julialang.org/en/v1/stdlib/REPL/#Numbered-prompt) for more information.
 """
 
-_generate(::NumberedPrompt) = read("templates/numberedprompt.jl", String)
+_generate(::NumberedPrompt) = read(get_template_file("numberedprompt.jl"), String)
 _dependencies(::Type{NumberedPrompt}) = []

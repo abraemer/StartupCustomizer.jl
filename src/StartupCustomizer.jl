@@ -141,6 +141,10 @@ function remove(mods...; file = which())
     end
 end
 
+function get_template_file(name)
+    return joinpath(@__DIR__, "../templates", name)
+end
+
 # Include modules
 
 include("modules/revise.jl")
