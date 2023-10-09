@@ -24,7 +24,7 @@ before they are passed, so it requires `PkgTemplates.jl` to be currently loaded 
 `julia = 1.9.2, plugins = [PkgTemplates.Git(String[], nothing, nothing, "main", true, true, false, false)]`
 """
 
-_generate(pkgt::PkgTemplates) = "PKGTEMPLATECONFIG = "*repr(pkgt.config)*"\n"*read("templates/pkgtemplates.jl", String)
+_generate(pkgt::PkgTemplates) = "PKGTEMPLATECONFIG = "*repr(pkgt.config)*"\n"*read(get_template_file("pkgtemplates.jl"), String)
 _dependencies(::Type{PkgTemplates}) = ["PkgTemplates"]
 
 function _format(pkgt::PkgTemplates)

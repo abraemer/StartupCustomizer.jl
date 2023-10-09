@@ -36,6 +36,7 @@ include("parse.jl")
 Return the location of the default `startup.jl`.
 """
 which() = joinpath(DEPOT_PATH[1], "config/startup.jl")
+# matches more or less Base._local_julia_startup_file()
 
 """
     edit()
@@ -138,6 +139,10 @@ function remove(mods...; file = which())
             Markdown.List(Markdown.Paragraph.(maybe_unneeded_dependencies))])
         @info infostr
     end
+end
+
+function get_template_file(name)
+    return joinpath(@__DIR__, "../templates", name)
 end
 
 # Include modules
